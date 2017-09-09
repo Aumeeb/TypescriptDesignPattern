@@ -1,56 +1,59 @@
 "use strict";
 var AbstractFactoryModel;
 (function (AbstractFactoryModel) {
-    class AbstractOperation {
-        setNumberA(num) {
-            this.numberA = num;
-        }
-        setNumberB(num) {
-            this.numberB = num;
+    class SQLFactory {
+        getUser() {
+            return new SQLUser();
         }
     }
-    class AbstractFactory {
-    }
-    class FactoryAdd extends AbstractFactory {
-        createOperation() {
-            return new OperationAdd();
+    class AccessFactory {
+        getUser() {
+            return new AccessUser();
         }
     }
-    class FactorySub extends AbstractFactory {
-        createOperation() {
-            return new OperationSub();
+    class SQLUser {
+        getName() {
+            return `my name is SQL`;
+        }
+        getData() {
+            let strArray = new Array();
+            strArray.push('a');
+            strArray.push('b');
+            return strArray;
+        }
+        getCount() {
+            return 1;
         }
     }
-    class OperationAdd extends AbstractOperation {
-        getResult() {
-            return this.numberA + this.numberB;
+    class AccessUser {
+        getName() {
+            return `my name is Access`;
+        }
+        getCount() {
+            return 2;
+        }
+        getData() {
+            let numArray = new Array();
+            numArray.push(1);
+            numArray.push(2);
+            return numArray;
         }
     }
-    class OperationSub extends AbstractOperation {
-        getResult() {
-            return this.numberA - this.numberB;
+    class Factory {
+        constructor() {
+            this.Database = 'access';
         }
-    }
-    class Factroy {
-        static createFactory(inputType) {
-            var factory;
-            switch (inputType) {
-                case '+':
-                    factory = new FactoryAdd();
-                    break;
-                case '-':
-                    factory = new FactorySub();
-                    break;
+        createIFactory() {
+            switch (this.Database) {
+                case 'sql':
+                    return new SQLFactory();
+                case 'access':
+                    return new AccessFactory();
                 default:
-                    factory = new FactoryAdd();
+                    return new SQLFactory();
             }
-            return factory;
         }
     }
-    AbstractFactoryModel.Factroy = Factroy;
+    var user = new Factory().createIFactory().getUser();
+    console.log(user.getName());
 })(AbstractFactoryModel || (AbstractFactoryModel = {}));
-var oper = AbstractFactoryModel.Factroy.createFactory('+').createOperation();
-oper.setNumberA(5);
-oper.setNumberB(5);
-var result = oper.getResult();
-console.log(result);
