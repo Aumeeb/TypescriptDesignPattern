@@ -12,7 +12,7 @@ class Factory {
         this.shape.list = new Array<Shape>();
     }
     createShape = (color: string): Shape => {
-        var exists = false;
+        var  exists = false;
         var _shape = new Shape();
         this.shape.list.forEach((value, index) => {
             if (value.color == color) {

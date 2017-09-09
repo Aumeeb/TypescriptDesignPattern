@@ -58,9 +58,9 @@ namespace AbstractFactoryModel {
     }
 }
 
-var oper = AbstractFactoryModel.Factroy.createFactory('+').createOperation();
+var absOper = AbstractFactoryModel.Factroy.createFactory('+').createOperation();
 
-oper.setNumberA(5);
-oper.setNumberB(5);
-var result = oper.getResult();
+absOper.setNumberA(5);
+absOper.setNumberB(5);
+var result = absOper.getResult();
 console.log(result);
