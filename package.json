@@ -1,0 +1,16 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "using typescript to build nodejs app first time",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/electron": "^1.6.10",
+    "@types/node": "^8.0.26"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "lixingchen",
+  "license": "ISC"
+}
