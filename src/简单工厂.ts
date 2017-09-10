@@ -1,6 +1,11 @@
+import { Jquery   } from './Jquery';
+
+
 namespace SimpleFactoryModel {
+    
     //创建一个抽象计算类
     abstract class AbstractOperation {
+        
         protected numberA: number;
         protected numberB: number;
         abstract getResult(): number;
@@ -56,6 +61,7 @@ namespace SimpleFactoryModel {
             return factory;
         }
     }
+    
 }
 
 var absOper = SimpleFactoryModel.Factroy.createFactory('+').createOperation();
@@ -64,3 +70,6 @@ absOper.setNumberA(5);
 absOper.setNumberB(5);
 var result = absOper.getResult();
 console.log(result);
+
+ 
+

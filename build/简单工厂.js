@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var SimpleFactoryModel;
 (function (SimpleFactoryModel) {
     class AbstractOperation {
