@@ -1,4 +1,5 @@
 # DesignPattern of Typescript language
+
 ## 1,简单工厂模式 Simple factory pattern
 ## 1,工厂模式  Factory method pattern
 ## 1,抽象工程模式 Abstract factory pattern
