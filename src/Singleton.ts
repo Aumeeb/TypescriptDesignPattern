@@ -1,3 +1,7 @@
+/**
+ *  the most easily design pattern of 23 design patterns 
+ *  limit the specific reference type can be declared only once
+ */
 class Singleton {
 
     private static instance: Singleton;
