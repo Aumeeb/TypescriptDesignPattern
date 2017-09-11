@@ -26,7 +26,6 @@ namespace Prototype {
             Reflect.setPrototypeOf(_obj,Reflect.getPrototypeOf(this));
             return <Monster>_obj;
         }
-
     }
 
     class Sheep extends Monster {
