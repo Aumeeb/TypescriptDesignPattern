@@ -12,17 +12,7 @@ var Prototype;
             this.id = id;
         }
         clone() {
-            var _obj = {};
-            for (var key in this) {
-                if (this.hasOwnProperty(key)) {
-                    var element = this[key];
-                    if (typeof element == 'string') {
-                        Reflect.defineProperty(_obj, key, { value: element });
-                    }
-                }
-            }
-            Reflect.setPrototypeOf(_obj, Reflect.getPrototypeOf(this));
-            return _obj;
+            return new Tool().clone(this);
         }
     }
     class Sheep extends Monster {

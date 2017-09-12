@@ -71,3 +71,8 @@ var bill = new Bill(new ReturnPrice);
 bill.addProduct(p1);
 bill.addProduct(p2);
 console.log(bill.getProductsPrice())
+
+
+/**
+ * 策略的重点在于当某一个行为有多种可能但只有一种结果的同事 利用多态来隔离变化
+ */

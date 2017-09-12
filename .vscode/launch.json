@@ -8,7 +8,7 @@
             "type":"node",
             "request": "launch",
             "name": "启动",
-            "program": "${workspaceRoot}/build/Prototype.js",
+            "program": "${workspaceRoot}/build/Adapter.js",
             //"program": "${workspaceRoot}/src/prototype.ts",
             "outFiles": [
                 "${workspaceRoot}/out/**/*.js"
