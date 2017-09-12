@@ -1,10 +1,10 @@
 "use strict";
-class Singleton {
+class SingletonLazy {
     constructor() {
     }
     static createInstance() {
         if (this.instance == null) {
-            this.instance = new Singleton();
+            this.instance = new SingletonLazy();
             this.instance.name = 'I called singleton';
             return this.instance;
         }
@@ -13,5 +13,11 @@ class Singleton {
         }
     }
 }
-console.log(Singleton.name);
-console.log(Singleton.createInstance().name);
+console.log(SingletonLazy.name);
+console.log(SingletonLazy.createInstance().name);
+class SingletonImmediately {
+    static createInstance() {
+        return this.instance;
+    }
+}
+SingletonImmediately.instance = new SingletonImmediately();
