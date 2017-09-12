@@ -10,10 +10,49 @@ class Tool {
                 if (element instanceof Array) {
                     Reflect.defineProperty(_obj, key, { value: element });
                 }
-                
+
             }
         }
         Reflect.setPrototypeOf(_obj, Reflect.getPrototypeOf(this));
         return <T>_obj;
     }
+    async asyncAccumulate(times: number): Promise<number> {
+        var promise = new Promise<number>((resolve, reject) => {
+            let total = 0;
+            for (var index = 0; index < times; index++) {
+                total += index;
+            }
+            resolve(total);
+
+            reject();
+        });
+        return promise;
+    }
+    async asyncAction (func: () => void): Promise<void> {
+        return new Promise<void>((resolve, rejuect) => {
+            func();
+            resolve();
+        })
+    }
+    async combineAccumulate() {
+        var aAct: number;
+        var aAct: number;
+        await this.asyncAccumulate(100 * 100);
+        await this.asyncAccumulate(100 * 100);
+    }
 }
+
+var tool = new Tool();
+
+tool.asyncAction(
+    ()=>{
+        let total = 0;
+        for (var index = 0; index < 250000000; index++) {
+            total += index;
+        }
+    }
+    
+).then(()=>{
+    console.log("计算完毕")    
+})
+console.log("继续执行")
