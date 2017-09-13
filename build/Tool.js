@@ -64,3 +64,7 @@ tool.asyncAction(() => {
     console.log("计算完毕");
 });
 console.log("继续执行");
+function arrayMap(f) {
+    return a => a.map(f);
+}
+const lengths = arrayMap(s => s.length);

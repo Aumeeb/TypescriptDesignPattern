@@ -28,7 +28,7 @@ class Tool {
         });
         return promise;
     }
-    async asyncAction (func: () => void): Promise<void> {
+    async asyncAction(func: () => void): Promise<void> {
         return new Promise<void>((resolve, rejuect) => {
             func();
             resolve();
@@ -45,14 +45,22 @@ class Tool {
 var tool = new Tool();
 
 tool.asyncAction(
-    ()=>{
+    () => {
         let total = 0;
         for (var index = 0; index < 250000000; index++) {
             total += index;
         }
     }
-    
-).then(()=>{
-    console.log("计算完毕")    
+
+).then(() => {
+    console.log("计算完毕")
+     
 })
 console.log("继续执行")
+
+/**2.4 syntax */
+function arrayMap<T, U>(f: (x: T) => U): (a: T[]) => U[] {
+    return a => a.map(f);
+}
+
+const lengths: (a: string[]) => number[] = arrayMap(s => s.length);
