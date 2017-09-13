@@ -44,15 +44,32 @@ class Tool {
 
 var tool = new Tool();
 
-tool.asyncAction(
-    ()=>{
-        let total = 0;
-        for (var index = 0; index < 250000000; index++) {
-            total += index;
-        }
-    }
+// tool.asyncAction(
+//     ()=>{
+//         let total = 0;
+//         for (var index = 0; index < 250000000; index++) {
+//             total += index;
+//         }
+//     }
     
-).then(()=>{
-    console.log("计算完毕")    
-})
-console.log("继续执行")
+// ).then(()=>{
+//     console.log("计算完毕")    
+// })
+// console.log("继续执行")
+async function printDelayed(elements: string[]) {
+    for (const element of elements) {
+          delay(4000);
+        console.log(element);
+    }
+}
+
+async function delay(milliseconds: number) {
+    return new Promise<void>(resolve => {
+        setTimeout(resolve, milliseconds);
+    });
+}
+
+printDelayed(["Hello", "beautiful", "asynchronous", "world"]).then(() => {
+    console.log();
+    console.log("打印每一个内容!");
+});
