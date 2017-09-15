@@ -59,7 +59,7 @@ namespace Filter {
         criteriaSingle: CriteriaSingle;
         constructor(criteriaSingle: CriteriaSingle) {
             this.criteriaSingle = criteriaSingle
-        }
+        } 
         meetCriteria(arr: HumanRace[]): HumanRace[] {
             var singleArr = this.criteriaSingle.meetCriteria(arr)
             var outArr = new Array<HumanRace>();
