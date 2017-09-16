@@ -28,7 +28,7 @@ class Tool {
         });
         return promise;
     }
-    async asyncAction (func: () => void): Promise<void> {
+    async asyncAction(func: () => void): Promise<void> {
         return new Promise<void>((resolve, rejuect) => {
             func();
             resolve();
@@ -51,21 +51,26 @@ var tool = new Tool();
 //             total += index;
 //         }
 //     }
-    
+
 // ).then(()=>{
 //     console.log("计算完毕")    
 // })
 // console.log("继续执行")
 async function printDelayed(elements: string[]) {
     for (const element of elements) {
-          delay(4000);
+         delay(4000);
         console.log(element);
     }
 }
-
+var times=10;
 async function delay(milliseconds: number) {
     return new Promise<void>(resolve => {
-        setTimeout(resolve, milliseconds);
+        setTimeout(() => { 
+            for (var index = 0; index < times; index++) {
+                console.log(index);
+            }
+            resolve() }
+            , milliseconds);
     });
 }
 
