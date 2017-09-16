@@ -60,9 +60,15 @@ async function printDelayed(elements) {
         console.log(element);
     }
 }
+var times = 10;
 async function delay(milliseconds) {
     return new Promise(resolve => {
-        setTimeout(resolve, milliseconds);
+        setTimeout(() => {
+            for (var index = 0; index < times; index++) {
+                console.log(index);
+            }
+            resolve();
+        }, milliseconds);
     });
 }
 printDelayed(["Hello", "beautiful", "asynchronous", "world"]).then(() => {
