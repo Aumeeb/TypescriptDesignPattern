@@ -40,10 +40,37 @@ class Tool {
         await this.asyncAccumulate(100 * 100);
         await this.asyncAccumulate(100 * 100);
     }
+    // public static reading(path: string, content: string = ''): Promise<string> {
+    //     return new Promise(resolve => {
+    //         FS.readFile(path, { encoding: 'utf-8', flag: 'r' }, (err, data) => {
+    //             resolve(content + '\n' + data);
+    //         })
+    //     });
+    // }
 }
 
 var tool = new Tool();
 
+tool.asyncAction(
+    () => {
+        let total = 0;
+        for (var index = 0; index < 250000000; index++) {
+            total += index;
+        }
+    }
+
+).then(() => {
+    console.log("计算完毕")
+     
+})
+console.log("继续执行")
+
+/**2.4 syntax */
+function arrayMap<T, U>(f: (x: T) => U): (a: T[]) => U[] {
+    return a => a.map(f);
+}
+
+const lengths: (a: string[]) => number[] = arrayMap(s => s.length);
 // tool.asyncAction(
 //     ()=>{
 //         let total = 0;
