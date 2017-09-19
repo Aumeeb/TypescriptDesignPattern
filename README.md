@@ -22,3 +22,7 @@ TS生成的JS代码放在了 ./build  下面
 ## 8,策略模式 Strategy Pattern
 ## 9,原型模式 Prototype Pattern
 ## 10 适配器模式 Adpater Pattern => src/Adapter.ts
+## 11 过滤器模式 Filter
+## 12 装饰着模式 Decorator
+## 13 外观模式   Facade
+## 14 组合 Composite
