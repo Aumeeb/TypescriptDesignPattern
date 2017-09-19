@@ -66,3 +66,6 @@ namespace Command {
 
     broker.placeOrder();
 }
+/**
+ * 命令模式
+ */
