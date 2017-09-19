@@ -28,3 +28,4 @@ TS生成的JS代码放在了 ./build  下面
 ## 14 组合模式 Composite
 ## 15 代理模式 Proxy
 ## 16 责任链模式 Chain of Responsibility
+## 17 命令模式  Command
