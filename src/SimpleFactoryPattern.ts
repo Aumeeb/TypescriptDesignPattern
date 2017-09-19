@@ -1,5 +1,4 @@
-import { Jquery   } from './Jquery';
-
+ 
 
 namespace SimpleFactoryPattern {
     
