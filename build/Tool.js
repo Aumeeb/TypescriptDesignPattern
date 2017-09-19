@@ -76,10 +76,16 @@ function printDelayed(elements) {
         }
     });
 }
+var times = 10;
 function delay(milliseconds) {
     return __awaiter(this, void 0, void 0, function* () {
         return new Promise(resolve => {
-            setTimeout(resolve, milliseconds);
+            setTimeout(() => {
+                for (var index = 0; index < times; index++) {
+                    console.log(index);
+                }
+                resolve();
+            }, milliseconds);
         });
     });
 }
