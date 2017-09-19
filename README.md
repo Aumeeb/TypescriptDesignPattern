@@ -25,4 +25,6 @@ TS生成的JS代码放在了 ./build  下面
 ## 11 过滤器模式 Filter
 ## 12 装饰着模式 Decorator
 ## 13 外观模式   Facade
-## 14 组合 Composite
+## 14 组合模式 Composite
+## 15 代理模式 Proxy
+## 16 责任链模式 Chain of Responsibility
