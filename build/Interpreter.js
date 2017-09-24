@@ -46,6 +46,6 @@ var Interpreter;
     }
     let robert = new TerminalExpression("Robert");
     let john = new TerminalExpression("John");
-    let and = new OrExpression(robert, john);
+    let and = new AndExpression(robert, john);
     console.log('John is male' + and.interpret('John'));
 })(Interpreter || (Interpreter = {}));
