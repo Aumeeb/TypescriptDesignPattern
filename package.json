@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "using typescript to build nodejs app first time",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "jquery": "^3.2.1"
+  },
   "devDependencies": {
     "@types/electron": "^1.6.10",
+    "@types/jquery": "^3.2.12",
     "@types/node": "^8.0.26",
     "typescript": "^2.5.2"
   },
