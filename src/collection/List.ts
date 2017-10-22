@@ -1,5 +1,6 @@
-
+import * as lodash from 'lodash'
 class List<T> {
+
     constructor(capacity?: number) {
 
         if (capacity == null)
@@ -14,15 +15,23 @@ class List<T> {
     }
     private _defaultCapacity: number = 4;
     private _items: Array<T>;
-
     private _size: number;
-
     private emptyArray: Array<T> = new Array<T>();
 
 
+    add(obj: T): number {
+        this._items.push(obj)
+        return this._items.length
+    }
+    insert(index: number, obj: T): void {
 
-
-
+    }
+    remove(index: number) {
+        return this._items.re
+    }
+    count(): number {
+        return this._items.length
+    }
 
 }
 new List<number>();
