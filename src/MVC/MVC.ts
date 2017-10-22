@@ -28,7 +28,6 @@ namespace MVC {
             this.createView();
             this.update();
         }
-
         createView() {
             this.box = $('<div/>').attr('id', 'employeeView').appendTo($('body'));
             this.idTextBox = $('<input/>').attr('type', 'text').attr('id', 'idTextBox').appendTo($(this.box));
@@ -46,6 +45,7 @@ namespace MVC {
             } else {
                 this.box.removeClass('employee-view-dragging')
             }
+            
         }
     }
 
