@@ -24,10 +24,12 @@ class List<T> {
         return this._items.length
     }
     insert(index: number, obj: T): void {
-
+        lodash.add(1,2).toExponential
+        
     }
     remove(index: number) {
-        return this._items.re
+        //return this._items
+        
     }
     count(): number {
         return this._items.length
