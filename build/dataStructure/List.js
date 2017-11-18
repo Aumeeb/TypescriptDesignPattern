@@ -1,4 +1,6 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const lodash = require("lodash");
 class List {
     constructor(capacity) {
         this._defaultCapacity = 4;
@@ -11,6 +13,18 @@ class List {
         else {
             this._items = new Array(capacity);
         }
+    }
+    add(obj) {
+        this._items.push(obj);
+        return this._items.length;
+    }
+    insert(index, obj) {
+        lodash.add(1, 2).toExponential;
+    }
+    remove(index) {
+    }
+    count() {
+        return this._items.length;
     }
 }
 new List();

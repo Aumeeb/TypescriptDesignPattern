@@ -2,27 +2,21 @@ namespace Observers {
     class Subject {
 
         private observers: Array<Observer> = new Array<Observer>()
-
         private state: number;
         public setState(state: number): void {
             this.state = state;
             this.notifyAllObservers();
         }
-
         public getState(): number {
             return this.state;
         }
-
         attach(observer: Observer): void {
             this.observers.push(observer);
         }
-
         notifyAllObservers() {
             this.observers.forEach((value) => {
                 value.update();
             })
-
-
         }
     }
 
