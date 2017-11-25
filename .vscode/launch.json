@@ -9,7 +9,7 @@
             "type":"node",
             "request": "launch",
             "name": "启动",
-            "program": "${workspaceRoot}/build/Interpreter.js",
+            "program": "${workspaceRoot}/build/test/test.js",
             //"program": "${workspaceRoot}/src/prototype.ts",
             "outFiles": [
                 "${workspaceRoot}/out/**/*.js"
