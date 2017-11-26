@@ -210,7 +210,7 @@ class Game {
                     case 39:
                         console.log("右");
                         if (this.canAnim) {
-                            Math2048.group(this.table, Direction.Right)
+                            MathLogic.group(this.table, Direction.Right)
                             this.cellArray.forEach((ele) => {
                                 this.uIRender.TailMove(ele, Direction.Right);
                             });
@@ -299,7 +299,7 @@ class Game {
         //设置初始化瓦片索引和值      
         for (let i = 0; i < this.ranTileCount; i++) {
             //开始创建2个随机的数字 2或者4
-            let tileIndex = Math2048.createRandom(this.tilesCount);
+            let tileIndex = MathLogic.createRandom(this.tilesCount);
             let tileValue = this.createNumber2or4();
             let cell = this.cellArray[tileIndex];
 
@@ -325,14 +325,14 @@ class Game {
     * 创建随机数字 2 or 4
     */
     createNumber2or4(): number {
-        var ran = Math2048.createRandom(10);
+        var ran = MathLogic.createRandom(10);
         var beginRan = ran % 2 == 0 ? 2 : 4;
         return beginRan;
     }
 
 
 }
-class Math2048 {
+class MathLogic {
     public static group(tileSquare: Tile[][], dir: Direction): Tile[][] {
         if (dir == Direction.Right) {
             tileSquare.forEach(tileArray => {
@@ -342,13 +342,14 @@ class Math2048 {
                     if (tileArray[i].value == 0)
                         continue;
 
+                    //元素自动向右移动
                     let tileIndex = i
                     while (tileArray[tileIndex + 1].value == 0) {
                         tileArray[tileIndex + 1].value = tileArray[tileIndex].value
                         tileArray[tileIndex].value = 0;
                         tileIndex++
                     }
-                    
+
                     //如果当前的元素和它右边相邻的元素一样 就可以相乘
                     if (tileArray[i].value == tileArray[i + 1].value) {
                         tileArray[i + 1].value **= 2
@@ -465,9 +466,9 @@ class UIRender {
 
     randomRGB(): string {
         let Max = 2 << 7 - 1;
-        let R = Math2048.createRandom(Max);
-        let G = Math2048.createRandom(Max);
-        let B = Math2048.createRandom(Max);
+        let R = MathLogic.createRandom(Max);
+        let G = MathLogic.createRandom(Max);
+        let B = MathLogic.createRandom(Max);
         return `RGB(${R},${G},${B})`;
     }
     private backgroundSkin(): void {
@@ -514,7 +515,7 @@ class UIRender {
                 emptyIndexArray.push(i)
         }
         //选出用可用的下标
-        let ranIndex = Math2048.createRandom(emptyIndexArray.length);
+        let ranIndex = MathLogic.createRandom(emptyIndexArray.length);
         let availableIndex = emptyIndexArray[ranIndex]
         cellArray[availableIndex].value = 2
         this.createTail(GC.row, GC.col, cellArray[availableIndex])

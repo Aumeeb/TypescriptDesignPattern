@@ -122,7 +122,7 @@ class Game {
                     case 39:
                         console.log("右");
                         if (this.canAnim) {
-                            Math2048.group(this.table, Direction.Right);
+                            MathLogic.group(this.table, Direction.Right);
                             this.cellArray.forEach((ele) => {
                                 this.uIRender.TailMove(ele, Direction.Right);
                             });
@@ -189,7 +189,7 @@ class Game {
             });
         });
         for (let i = 0; i < this.ranTileCount; i++) {
-            let tileIndex = Math2048.createRandom(this.tilesCount);
+            let tileIndex = MathLogic.createRandom(this.tilesCount);
             let tileValue = this.createNumber2or4();
             let cell = this.cellArray[tileIndex];
             cell.value = tileValue;
@@ -208,12 +208,12 @@ class Game {
         });
     }
     createNumber2or4() {
-        var ran = Math2048.createRandom(10);
+        var ran = MathLogic.createRandom(10);
         var beginRan = ran % 2 == 0 ? 2 : 4;
         return beginRan;
     }
 }
-class Math2048 {
+class MathLogic {
     static group(tileSquare, dir) {
         if (dir == Direction.Right) {
             tileSquare.forEach(tileArray => {
@@ -312,9 +312,9 @@ class UIRender {
     }
     randomRGB() {
         let Max = 2 << 7 - 1;
-        let R = Math2048.createRandom(Max);
-        let G = Math2048.createRandom(Max);
-        let B = Math2048.createRandom(Max);
+        let R = MathLogic.createRandom(Max);
+        let G = MathLogic.createRandom(Max);
+        let B = MathLogic.createRandom(Max);
         return `RGB(${R},${G},${B})`;
     }
     backgroundSkin() {
@@ -351,7 +351,7 @@ class UIRender {
             if (cellArray[i].value == 0)
                 emptyIndexArray.push(i);
         }
-        let ranIndex = Math2048.createRandom(emptyIndexArray.length);
+        let ranIndex = MathLogic.createRandom(emptyIndexArray.length);
         let availableIndex = emptyIndexArray[ranIndex];
         cellArray[availableIndex].value = 2;
         this.createTail(GC.row, GC.col, cellArray[availableIndex]);
