@@ -56,3 +56,4 @@ var Prototype;
     monster1.draw();
     monster2.draw();
 })(Prototype || (Prototype = {}));
+//# sourceMappingURL=Prototype.js.map

@@ -59,3 +59,4 @@ var bill = new Bill(new ReturnPrice);
 bill.addProduct(p1);
 bill.addProduct(p2);
 console.log(bill.getProductsPrice());
+//# sourceMappingURL=Strategy.js.map

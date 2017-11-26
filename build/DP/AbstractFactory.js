@@ -57,3 +57,4 @@ var AbstractFactoryModel;
     var user = new Factory().createIFactory().getUser();
     console.log(user.getName());
 })(AbstractFactoryModel || (AbstractFactoryModel = {}));
+//# sourceMappingURL=AbstractFactory.js.map

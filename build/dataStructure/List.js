@@ -43,3 +43,4 @@ console.log(new A().conbine(1, 2));
 console.log(new A().conbine('1', '2'));
 new List();
 new List(5);
+//# sourceMappingURL=List.js.map

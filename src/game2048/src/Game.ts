@@ -1,9 +1,19 @@
-﻿class GameConfig {
+﻿
+/**
+ * GameConfig 
+ */
+class GC {
     static animDuration: number = 100
     static canvasWidth: number = 1200
     static canvasHeight: number = 1200
     static bodyPaddingTop: number = 300
+
+    //根据难度计算出的来行数
+    static row: number = 0;
+    //根据难度计算出的来列数
+    static col: number = 0;
 }
+
 /**
  *  You can choose one of all difficult to start game , each difficult has different cells
  */
@@ -14,8 +24,7 @@ enum Difficult {
     Normal,
     Hard,
     Expert,
-    Boss,
-    God
+    Boss
 }
 /**
  * record which direction key has been pressed
@@ -69,8 +78,8 @@ class Player {
 
 }
 
-class TileDictionary {
-
+class Tile {
+    isEmpty: boolean = true;
     /**
   * 索引
   */
@@ -91,6 +100,9 @@ class TileDictionary {
     * 边框宽度
     */
     borderWidth: number = 0;
+    /**
+    * 边框高度
+    */
     borderHeight: number = 0;
     /**
     * 上偏移
@@ -140,6 +152,7 @@ class Table {
 var Constpoint: Table;
 class Game {
 
+
     inputable: boolean = true
     canAnim: boolean = true;
     Name = "GameObject";
@@ -148,8 +161,8 @@ class Game {
     canvas: HTMLDivElement;
     row: number;
     col: number;
-    table: Array<Array<TileDictionary>>;
-    cellArray = new Array<TileDictionary>();
+    table: Array<Array<Tile>>;
+    cellArray = new Array<Tile>();
     diff: Difficult;
     width: number;
     height: number;
@@ -158,43 +171,45 @@ class Game {
     //总数
     public tilesCount: number;
 
+
+
     constructor(canvas: HTMLDivElement, difficult: Difficult) {
 
         this.setDifficult(difficult);
+
         this.canvas = canvas;
         this.canvas.tabIndex = 100;
         this.tilesCount = this.row * this.col;
-        this.uIRender = new UIRender(this.canvas);
+        this.uIRender = new UIRender(this.canvas, this);
         this.init();
-        this.uIRender.createElement(this.width, this.height, this.row, this.col, "div");
+        this.uIRender.createBackGroundTail(this.width, this.height, this.row, this.col, "div");
         this.canvas.onkeydown = (e) => {
             if (this.inputable) {
                 switch (e.keyCode) {//判断e.indexCode
                     //是37: 就左移
                     case 37:
-
                         console.log("左");
-                        if (this.canAnim) {
-                            this.cellArray.forEach((ele) => {
-                                this.uIRender.TailMove(ele, Direction.Left);
-                            });
-                        }
+                        // if (this.canAnim) {
+                        //     this.cellArray.forEach((ele) => {
+                        //         this.uIRender.TailMove(ele, Direction.Left);
+                        //     });
+                        // }
                         //有问题.
                         break;
                     //是38: 就上移
                     case 38:
                         console.log("上");
-
                         break;
                     //是39: 就右移
                     case 39:
                         console.log("右");
                         if (this.canAnim) {
+                            Math2048.group(this.table, Direction.Right)
                             this.cellArray.forEach((ele) => {
                                 this.uIRender.TailMove(ele, Direction.Right);
                             });
                         }
-                        this.uIRender.createNewOne();
+                        this.uIRender.createNewOne(this.cellArray);
                         break;
                     //是40: 就下移
                     case 40:
@@ -207,15 +222,13 @@ class Game {
 
         }
 
-
         this.canvas.onmouseover = this.mouseOver;
-
     }
 
 
     setDifficult(diff: Difficult): void {
         let sideLenOfCell: number = 4;
-        let sideLenOfGodMode: number = 100;
+
 
         switch (diff) {
             case Difficult.Normal:
@@ -238,28 +251,26 @@ class Game {
                 this.row = sideLenOfCell << 4;
                 this.col = sideLenOfCell << 4;
                 break;
-            case Difficult.God:
-                this.row = sideLenOfGodMode;
-                this.col = sideLenOfGodMode;
-                break;
             default:
         }
         this.diff = diff;
+        GC.col = this.col;
+        GC.row = this.row;
         Constpoint = new Table(this.col, this.row);
     }
     init(): void {
 
-        this.width = GameConfig.canvasWidth;
-        this.height = GameConfig.canvasHeight;
+        this.width = GC.canvasWidth;
+        this.height = GC.canvasHeight;
 
 
-        this.table = new Array<Array<TileDictionary>>(this.row);
+        this.table = new Array<Array<Tile>>(this.row);
         let tab = 0;
         //设置 棋盘格初始化数据
         for (let i = 0; i < this.row; i++) {
-            let array1 = new Array<TileDictionary>(this.col);
+            let array1 = new Array<Tile>(this.col);
             for (var j = 0; j < array1.length; j++) {
-                array1[j] = new TileDictionary();
+                array1[j] = new Tile();
                 array1[j].index = tab;
                 tab++;
             }
@@ -284,14 +295,16 @@ class Game {
             //开始创建2个随机的数字 2或者4
             let tileIndex = Math2048.createRandom(this.tilesCount);
             let tileValue = this.createNumber2or4();
-            this.cellArray[tileIndex].value = tileValue;
+            let cell = this.cellArray[tileIndex];
+            cell.value = tileValue;
+            cell.isEmpty = false
         }
     }
-    mouseOver(mouse: MouseEvent) {
-        console.log(mouse.x);
+    mouseOver(mouse: MouseEvent): void {
+        //   console.log(mouse.x);
     }
 
-    start() {
+    start(): void {
         console.dir(this.table);
         console.dir(this.cellArray);
         console.dir(this.tilesCount);
@@ -309,12 +322,27 @@ class Game {
         var ran = Math2048.createRandom(10);
         var beginRan = ran % 2 == 0 ? 2 : 4;
         return beginRan;
-
     }
 
 
 }
 class Math2048 {
+    public static group(tileSquare: Tile[][], dir: Direction): Tile[][] {
+        if (dir == Direction.Right) {
+            tileSquare.forEach(tileArray => {
+                //实现思路 从每一个行最右边依次向最左边拿"元素" 每个拿到的元素会和它自身右边的元素相乘
+                for (let i = tileArray.length - 2; i >= 0; i--) {  
+                    if (tileArray[i].value == 0 && tileArray[i + 1].value == 0)
+                        continue
+                    else if (tileArray[i].value == tileArray[i + 1].value) {
+                        tileArray[i + 1].value **= 2
+                    }
+
+                }
+            })
+        }
+        return tileSquare
+    }
     public static createRandom(n: number): number {
         return Math.floor(Math.random() * n);
     }
@@ -388,14 +416,14 @@ class Animation {
 
 }
 class UIRender {
-    private canvasStyle(): any {
+    private canvasStyle(): void {
         let canvas = document.getElementById('d') as HTMLDivElement;
-        canvas.style.width = this.toPx(GameConfig.canvasWidth)
-        canvas.style.height = this.toPx(GameConfig.canvasHeight)
+        canvas.style.width = this.toPx(GC.canvasWidth)
+        canvas.style.height = this.toPx(GC.canvasHeight)
     }
     private bodyStyle(): void {
         var body = document.getElementsByTagName('body').item(0);
-        body.style.paddingTop = this.toPx(GameConfig.bodyPaddingTop);
+        body.style.paddingTop = this.toPx(GC.bodyPaddingTop);
         body.style.opacity = '0.9';
         body.style.backgroundImage = 'url(./img/huge2.jpg)';
     }
@@ -407,7 +435,9 @@ class UIRender {
      * 最外层的div容器
      */
     private canvas: HTMLDivElement;
-    constructor(canvas: HTMLDivElement) {
+    private game: Game
+    constructor(canvas: HTMLDivElement, game: Game) {
+        this.game = game
         this.canvas = canvas;
         this.backgroundSkin();
         this.bodyStyle();
@@ -423,13 +453,13 @@ class UIRender {
         let B = Math2048.createRandom(Max);
         return `RGB(${R},${G},${B})`;
     }
-    private backgroundSkin() {
+    private backgroundSkin(): void {
         this.canvas.style.backgroundColor = ColorPan.backgroundDivBig;
         this.canvas.style.margin = "auto";
         this.canvas.style.position = "relative";
         this.canvas.style.borderRadius = this.toPx(6)
     }
-    public createElement(canvasWidth: number, canvasHeight: number, row: number, col: number, eleName: string): void {
+    public createBackGroundTail(canvasWidth: number, canvasHeight: number, row: number, col: number, eleName: string): void {
 
         let borderWidth = canvasWidth * (1 / 6);
         let borderHeight = canvasHeight * (1 / 6);
@@ -459,7 +489,7 @@ class UIRender {
         }
     }
     //随机创建一个新的  "格子""
-    public createNewOne(cellArray: Array<TileDictionary>) {
+    public createNewOne(cellArray: Array<Tile>) {
         //找出空的集合
         let emptyIndexArray = new Array<number>();
         for (let i = 0; i < cellArray.length; i++) {
@@ -469,21 +499,21 @@ class UIRender {
         //选出用可用的下标
         let ranIndex = Math2048.createRandom(emptyIndexArray.length);
         let availableIndex = emptyIndexArray[ranIndex]
-
-        this.createTail(1,1,)
+        cellArray[availableIndex].value = 2
+        this.createTail(GC.row, GC.col, cellArray[availableIndex])
     }
-    public createTail(row: number, col: number, dict: TileDictionary
+    public createTail(row: number, col: number, tile: Tile
         , ): HTMLDivElement {
-        if (dict == null) {
+        if (tile == null) {
             console.log("dict is null")
         }
-        let index = dict.index;
-        let value = dict.value;
+        let index = tile.index;
+        let value = tile.value;
 
-        let borderWidth = GameConfig.canvasWidth * (1 / 6);
-        let borderHeight = GameConfig.canvasHeight * (1 / 6);
-        let width = (GameConfig.canvasWidth - borderWidth) / col;
-        let height = (GameConfig.canvasHeight - borderHeight) / row;
+        let borderWidth = GC.canvasWidth * (1 / 6);
+        let borderHeight = GC.canvasHeight * (1 / 6);
+        let width = (GC.canvasWidth - borderWidth) / col;
+        let height = (GC.canvasHeight - borderHeight) / row;
         let pieceOfRectangle = row * col;
         let singleborderWidth = borderWidth / (col + 1);
         let singleborderHeight = borderHeight / (row + 1);
@@ -502,24 +532,24 @@ class UIRender {
         let y = singleborderHeight + (singleborderHeight + height) * (Math.floor(index / col));
         eleDiv.style.top = this.toPx(y);
 
-        dict.own = eleDiv;
-        dict.width = width;
-        dict.height = height;
-        dict.borderWidth = singleborderWidth;
-        dict.borderHeight = singleborderHeight;
-        dict.left = x;
-        dict.top = y;
+        tile.own = eleDiv;
+        tile.width = width;
+        tile.height = height;
+        tile.borderWidth = singleborderWidth;
+        tile.borderHeight = singleborderHeight;
+        tile.left = x;
+        tile.top = y;
 
 
         var a = document.createElement("a");
         a.style.fontSize = this.toPx(height / 2.5);
-        a.innerText = dict.value.toString();
+        a.innerText = tile.value.toString();
         eleDiv.appendChild(a);
         this.canvas.appendChild(eleDiv);
 
         return eleDiv;
     }
-    TailMove(tile: TileDictionary, dir: Direction): void {
+    TailMove(tile: Tile, dir: Direction): void {
         let frameRate: number = 60;
         if (tile) {
             if (dir != null) {
@@ -528,14 +558,14 @@ class UIRender {
                     Animation.BeginAnim(0, tile.left, tile.borderWidth - tile.left, frameRate, AnimationType.linear, tile.own);
                     setTimeout(() => {
                         tile.update();
-                    }, GameConfig.animDuration);
+                    }, GC.animDuration);
                 }
                 if (dir == Direction.Right) {
                     var tileWidth = tile.width + tile.borderWidth;
                     Animation.BeginAnim(0, tile.left, (tileWidth * (tile.currentTableSize().col - 1)) - (tileWidth * tile.currentColIndex()), frameRate, AnimationType.linear, tile.own);
                     setTimeout(() => {
                         tile.update();
-                    }, GameConfig.animDuration);
+                    }, GC.animDuration);
                 }
             }
 
@@ -550,7 +580,7 @@ class UIRender {
 
 let canvas = document.getElementById('d') as HTMLDivElement
 if (canvas != null) {
-    let game = new Game(canvas, Difficult.Easy);
+    let game = new Game(canvas, Difficult.Normal);
     game.start();
     let guan = new Player(canvas);
 }

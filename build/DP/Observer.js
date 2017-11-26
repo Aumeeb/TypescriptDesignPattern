@@ -62,3 +62,4 @@ var Observers;
     console.log("First state change: 10");
     subject.setState(10);
 })(Observers || (Observers = {}));
+//# sourceMappingURL=Observer.js.map

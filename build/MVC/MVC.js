@@ -99,3 +99,4 @@ function init() {
     let v = new MVC.EmpolyeeView(vm);
     let c = new MVC.EmpolyeeController(vm, v);
 }
+//# sourceMappingURL=MVC.js.map

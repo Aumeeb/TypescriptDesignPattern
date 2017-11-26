@@ -80,3 +80,4 @@ var Filter;
     }
     printer(criteriaSingleMale.meetCriteria(humanRacelist));
 })(Filter || (Filter = {}));
+//# sourceMappingURL=Filter.js.map

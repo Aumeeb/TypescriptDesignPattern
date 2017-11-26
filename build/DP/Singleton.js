@@ -21,3 +21,4 @@ class SingletonImmediately {
     }
 }
 SingletonImmediately.instance = new SingletonImmediately();
+//# sourceMappingURL=Singleton.js.map

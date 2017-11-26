@@ -22,3 +22,4 @@ class FindMaxNumber {
     }
 }
 console.log(new FindMaxNumber().Max());
+//# sourceMappingURL=FindMaxNumber.js.map

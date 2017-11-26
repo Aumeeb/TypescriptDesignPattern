@@ -69,3 +69,4 @@ var Adpater;
     player.play(Extenstion.Vlc, 'hello.Vlc');
     player.play(Extenstion.Zbu, 'oots.xx');
 })(Adpater || (Adpater = {}));
+//# sourceMappingURL=Adapter.js.map

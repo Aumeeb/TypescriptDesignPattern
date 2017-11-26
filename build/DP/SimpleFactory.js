@@ -54,3 +54,4 @@ absOper.setNumberA(5);
 absOper.setNumberB(5);
 var result = absOper.getResult();
 console.log(result);
+//# sourceMappingURL=SimpleFactory.js.map

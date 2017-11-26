@@ -28,3 +28,4 @@ var ProxyPattern;
     image.display();
     image.display();
 })(ProxyPattern || (ProxyPattern = {}));
+//# sourceMappingURL=Proxy.js.map

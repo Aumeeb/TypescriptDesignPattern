@@ -49,3 +49,4 @@ var Interpreter;
     let and = new AndExpression(robert, john);
     console.log('John is male' + and.interpret('John'));
 })(Interpreter || (Interpreter = {}));
+//# sourceMappingURL=Interpreter.js.map

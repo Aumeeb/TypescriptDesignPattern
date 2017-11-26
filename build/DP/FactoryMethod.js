@@ -57,3 +57,4 @@ oper.setNumberA(5);
 oper.setNumberB(5);
 var result = oper.getResult();
 console.log(result);
+//# sourceMappingURL=FactoryMethod.js.map

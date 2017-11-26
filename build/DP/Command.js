@@ -50,3 +50,4 @@ var Command;
     broker.takeOrder(seller);
     broker.placeOrder();
 })(Command || (Command = {}));
+//# sourceMappingURL=Command.js.map

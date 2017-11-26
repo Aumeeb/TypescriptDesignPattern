@@ -34,3 +34,4 @@ var Decorator;
     var rect = new Rect();
     new RedRect(rect).draw();
 })(Decorator || (Decorator = {}));
+//# sourceMappingURL=Decorator.js.map

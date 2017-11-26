@@ -34,3 +34,4 @@ myFactory.createShape('red');
 myFactory.createShape('red');
 myFactory.createShape('blue');
 console.log(myFactory.shape.list);
+//# sourceMappingURL=Flyweight.js.map

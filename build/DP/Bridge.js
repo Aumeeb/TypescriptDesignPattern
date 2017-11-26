@@ -57,3 +57,4 @@ var bus = new Bus(male);
 var street = new Street(bus);
 var speedway = new SpeedWay(bus);
 street.run();
+//# sourceMappingURL=Bridge.js.map

@@ -48,3 +48,4 @@ cls1.eat();
 cls1.eat();
 cls2.eat();
 cls2.eat();
+//# sourceMappingURL=test.js.map

@@ -54,3 +54,4 @@ var ChainOfResponsibility;
     loggerChain.logMessage(AbstractLogger.DEBUG, "This is an debug level information.");
     loggerChain.logMessage(AbstractLogger.ERROR, "This is an error information.");
 })(ChainOfResponsibility || (ChainOfResponsibility = {}));
+//# sourceMappingURL=ChainOfResponsibility.js.map
