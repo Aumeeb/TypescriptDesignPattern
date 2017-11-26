@@ -54,7 +54,6 @@ class Player {
 }
 class Tile {
     constructor() {
-        this.isEmpty = true;
         this.index = 0;
         this.value = 0;
         this.width = 0;
@@ -72,6 +71,12 @@ class Tile {
     }
     currentTableSize() {
         return Constpoint;
+    }
+    isEmpty() {
+        if (this.value == 0)
+            return true;
+        else
+            return false;
     }
     update() {
         if (this.own.style.left)
@@ -188,7 +193,6 @@ class Game {
             let tileValue = this.createNumber2or4();
             let cell = this.cellArray[tileIndex];
             cell.value = tileValue;
-            cell.isEmpty = false;
         }
     }
     mouseOver(mouse) {
@@ -214,10 +218,17 @@ class Math2048 {
         if (dir == Direction.Right) {
             tileSquare.forEach(tileArray => {
                 for (let i = tileArray.length - 2; i >= 0; i--) {
-                    if (tileArray[i].value == 0 && tileArray[i + 1].value == 0)
+                    if (tileArray[i].value == 0)
                         continue;
-                    else if (tileArray[i].value == tileArray[i + 1].value) {
+                    let tileIndex = i;
+                    while (tileArray[tileIndex + 1].value == 0) {
+                        tileArray[tileIndex + 1].value = tileArray[tileIndex].value;
+                        tileArray[tileIndex].value = 0;
+                        tileIndex++;
+                    }
+                    if (tileArray[i].value == tileArray[i + 1].value) {
                         tileArray[i + 1].value **= 2;
+                        tileArray[i].value = 0;
                     }
                 }
             });

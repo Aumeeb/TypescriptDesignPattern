@@ -79,7 +79,7 @@ class Player {
 }
 
 class Tile {
-    isEmpty: boolean = true;
+
     /**
   * 索引
   */
@@ -121,6 +121,12 @@ class Tile {
     }
     currentTableSize(): Table {
         return Constpoint;
+    }
+    isEmpty(): boolean {
+        if (this.value == 0)
+            return true
+        else
+            return false
     }
     /**
  * 瓦片
@@ -296,8 +302,8 @@ class Game {
             let tileIndex = Math2048.createRandom(this.tilesCount);
             let tileValue = this.createNumber2or4();
             let cell = this.cellArray[tileIndex];
+
             cell.value = tileValue;
-            cell.isEmpty = false
         }
     }
     mouseOver(mouse: MouseEvent): void {
@@ -331,11 +337,22 @@ class Math2048 {
         if (dir == Direction.Right) {
             tileSquare.forEach(tileArray => {
                 //实现思路 从每一个行最右边依次向最左边拿"元素" 每个拿到的元素会和它自身右边的元素相乘
-                for (let i = tileArray.length - 2; i >= 0; i--) {  
-                    if (tileArray[i].value == 0 && tileArray[i + 1].value == 0)
-                        continue
-                    else if (tileArray[i].value == tileArray[i + 1].value) {
+                for (let i = tileArray.length - 2; i >= 0; i--) {
+                    //如果元素自身是空 就不管它
+                    if (tileArray[i].value == 0)
+                        continue;
+
+                    let tileIndex = i
+                    while (tileArray[tileIndex + 1].value == 0) {
+                        tileArray[tileIndex + 1].value = tileArray[tileIndex].value
+                        tileArray[tileIndex].value = 0;
+                        tileIndex++
+                    }
+                    
+                    //如果当前的元素和它右边相邻的元素一样 就可以相乘
+                    if (tileArray[i].value == tileArray[i + 1].value) {
                         tileArray[i + 1].value **= 2
+                        tileArray[i].value = 0
                     }
 
                 }
