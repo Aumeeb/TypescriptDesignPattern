@@ -217,18 +217,24 @@ class MathLogic {
     static group(tileSquare, dir) {
         if (dir == Direction.Right) {
             tileSquare.forEach(tileArray => {
+                let isNotComputed = true;
                 for (let i = tileArray.length - 2; i >= 0; i--) {
                     if (tileArray[i].value == 0)
                         continue;
                     let tileIndex = i;
-                    while (tileArray[tileIndex + 1].value == 0) {
+                    while (tileArray[tileIndex + 1].value == 0 && tileIndex < tileArray.length) {
                         tileArray[tileIndex + 1].value = tileArray[tileIndex].value;
                         tileArray[tileIndex].value = 0;
                         tileIndex++;
+                        if (tileIndex == tileArray.length - 1)
+                            break;
                     }
-                    if (tileArray[i].value == tileArray[i + 1].value) {
-                        tileArray[i + 1].value **= 2;
-                        tileArray[i].value = 0;
+                    if (isNotComputed) {
+                        if (tileArray[i].value == tileArray[i + 1].value) {
+                            tileArray[i + 1].value **= 2;
+                            tileArray[i].value = 0;
+                        }
+                        isNotComputed = false;
                     }
                 }
             });
