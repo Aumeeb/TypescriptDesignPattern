@@ -98,6 +98,7 @@ class Table {
 var Constpoint;
 class Game {
     constructor(canvas, difficult) {
+        this.gameStep = 1;
         this.inputable = true;
         this.canAnim = true;
         this.Name = "GameObject";
@@ -107,6 +108,7 @@ class Game {
         this.canvas = canvas;
         this.canvas.tabIndex = 100;
         this.tilesCount = this.row * this.col;
+        this.history = new Map();
         this.uIRender = new UIRender(this.canvas, this);
         this.init();
         this.uIRender.createBackGroundTail(this.width, this.height, this.row, this.col, "div");
@@ -169,6 +171,17 @@ class Game {
         GC.row = this.row;
         Constpoint = new Table(this.col, this.row);
     }
+    recordHistory(cur) {
+        this.history.set(this.gameStep++, cur);
+    }
+    recordHistory2(cur) {
+        let table = new Array(this.row);
+        let row = Math.sqrt(cur.length);
+        for (let index = 0; index < array.length; index++) {
+            const element = array[index];
+        }
+        this.recordHistory(table);
+    }
     init() {
         this.width = GC.canvasWidth;
         this.height = GC.canvasHeight;
@@ -183,6 +196,7 @@ class Game {
             }
             this.table[i] = array1;
         }
+        this.recordHistory(this.table);
         this.table.forEach(element => {
             element.forEach(tile => {
                 this.cellArray.push(tile);
@@ -194,6 +208,7 @@ class Game {
             let cell = this.cellArray[tileIndex];
             cell.value = tileValue;
         }
+        this.recordHistory2(this.cellArray);
     }
     mouseOver(mouse) {
     }
@@ -362,6 +377,9 @@ class UIRender {
         cellArray[availableIndex].value = 2;
         this.createTail(GC.row, GC.col, cellArray[availableIndex]);
     }
+    update(previous, next) {
+        return true;
+    }
     createTail(row, col, tile) {
         if (tile == null) {
             console.log("dict is null");
@@ -427,7 +445,7 @@ class UIRender {
 }
 let canvas = document.getElementById('d');
 if (canvas != null) {
-    let game = new Game(canvas, Difficult.Normal);
+    let game = new Game(canvas, Difficult.Easy);
     game.start();
     let guan = new Player(canvas);
 }

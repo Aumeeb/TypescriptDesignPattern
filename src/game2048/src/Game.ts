@@ -156,9 +156,11 @@ class Table {
 }
 //公开难度
 var Constpoint: Table;
+type TileSquare = Array<Array<Tile>>;
 class Game {
 
-
+    gameStep: number = 1;
+    history: Map<number, TileSquare>
     inputable: boolean = true
     canAnim: boolean = true;
     Name = "GameObject";
@@ -167,7 +169,7 @@ class Game {
     canvas: HTMLDivElement;
     row: number;
     col: number;
-    table: Array<Array<Tile>>;
+    table: TileSquare;
     cellArray = new Array<Tile>();
     diff: Difficult;
     width: number;
@@ -176,9 +178,6 @@ class Game {
     ranTileCount = 2;  //有bug 可能生成的元素会在同一个坐标上🐷
     //总数
     public tilesCount: number;
-
-
-
     constructor(canvas: HTMLDivElement, difficult: Difficult) {
 
         this.setDifficult(difficult);
@@ -186,6 +185,7 @@ class Game {
         this.canvas = canvas;
         this.canvas.tabIndex = 100;
         this.tilesCount = this.row * this.col;
+        this.history = new Map<number, TileSquare>();
         this.uIRender = new UIRender(this.canvas, this);
         this.init();
         this.uIRender.createBackGroundTail(this.width, this.height, this.row, this.col, "div");
@@ -230,8 +230,6 @@ class Game {
 
         this.canvas.onmouseover = this.mouseOver;
     }
-
-
     setDifficult(diff: Difficult): void {
         let sideLenOfCell: number = 4;
 
@@ -264,8 +262,20 @@ class Game {
         GC.row = this.row;
         Constpoint = new Table(this.col, this.row);
     }
-    init(): void {
+    recordHistory(cur: TileSquare) {
+        this.history.set(this.gameStep++, cur)
+    }
+    recordHistory2(cur: Tile[]) {
+        let table = new Array<Array<Tile>>(this.row);
+        let row = Math.sqrt(cur.length);
+        for (let index = 0; index < array.length; index++) {
+            const element = array[index];
+            
+        }
+        this.recordHistory(table)
 
+    }
+    init(): void {
         this.width = GC.canvasWidth;
         this.height = GC.canvasHeight;
 
@@ -282,6 +292,8 @@ class Game {
             }
             this.table[i] = array1;
         }
+
+        this.recordHistory(this.table)
         //把矩形2维数组转换1维
 
         // 2 2 1 
@@ -296,6 +308,7 @@ class Game {
             });
         });
 
+
         //设置初始化瓦片索引和值      
         for (let i = 0; i < this.ranTileCount; i++) {
             //开始创建2个随机的数字 2或者4
@@ -305,6 +318,8 @@ class Game {
 
             cell.value = tileValue;
         }
+
+        this.recordHistory2(this.cellArray)
     }
     mouseOver(mouse: MouseEvent): void {
         //   console.log(mouse.x);
@@ -527,6 +542,10 @@ class UIRender {
         cellArray[availableIndex].value = 2
         this.createTail(GC.row, GC.col, cellArray[availableIndex])
     }
+    public update(previous: TileSquare, next: TileSquare): Boolean {
+
+        return true;
+    }
     public createTail(row: number, col: number, tile: Tile
         , ): HTMLDivElement {
         if (tile == null) {
@@ -605,7 +624,7 @@ class UIRender {
 
 let canvas = document.getElementById('d') as HTMLDivElement
 if (canvas != null) {
-    let game = new Game(canvas, Difficult.Normal);
+    let game = new Game(canvas, Difficult.Easy);
     game.start();
     let guan = new Player(canvas);
 }
