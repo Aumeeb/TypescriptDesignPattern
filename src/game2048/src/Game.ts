@@ -159,6 +159,7 @@ var Constpoint: Table;
 type TileSquare = Array<Array<Tile>>;
 class Game {
 
+
     gameStep: number = 1;
     history: Map<number, TileSquare>
     inputable: boolean = true
@@ -262,18 +263,41 @@ class Game {
         GC.row = this.row;
         Constpoint = new Table(this.col, this.row);
     }
-    recordHistory(cur: TileSquare) {
-        this.history.set(this.gameStep++, cur)
+    copyTileSquare(source: TileSquare): TileSquare {
+        let target = new Array<Array<Tile>>(this.row);
+        source.forEach(t => {
+            var newArray = new Array<Tile>();
+            target.push(newArray)
+            for (const value of t) {
+                newArray.push(value);
+            }
+        })
+        return target;
     }
-    recordHistory2(cur: Tile[]) {
-        let table = new Array<Array<Tile>>(this.row);
-        let row = Math.sqrt(cur.length);
-        for (let index = 0; index < array.length; index++) {
-            const element = array[index];
-            
-        }
-        this.recordHistory(table)
+    recordHistory(cur: TileSquare) {
+        var newCur = this.copyTileSquare(cur);
 
+
+        this.history.set(this.gameStep++, newCur)
+        this.history.forEach((v, k) => {
+
+            console.log("round " + k)
+            console.log(v)
+        })
+    }
+    toTable(cur: Tile[]): TileSquare {
+        let table = new Array<Array<Tile>>(this.row);
+
+        let array = new Array<Tile>();
+        for (let i = 0, k = -1; i < cur.length; i++) {
+            if (i % this.row == 0) {
+                array = new Array<Tile>();
+                k++
+            }
+            array.push(cur[i]);
+            table[k] = array;
+        }
+        return table
     }
     init(): void {
         this.width = GC.canvasWidth;
@@ -318,17 +342,17 @@ class Game {
 
             cell.value = tileValue;
         }
+        this.recordHistory(this.toTable(this.cellArray));
 
-        this.recordHistory2(this.cellArray)
     }
     mouseOver(mouse: MouseEvent): void {
         //   console.log(mouse.x);
     }
 
     start(): void {
-        console.dir(this.table);
-        console.dir(this.cellArray);
-        console.dir(this.tilesCount);
+        // console.dir(this.table);
+        // console.dir(this.cellArray);
+        // console.dir(this.tilesCount);
         this.cellArray.forEach((tile) => {
             if (tile.value > 0) {
                 this.uIRender.createTail(this.row, this.col, tile);
@@ -624,7 +648,7 @@ class UIRender {
 
 let canvas = document.getElementById('d') as HTMLDivElement
 if (canvas != null) {
-    let game = new Game(canvas, Difficult.Easy);
+    let game = new Game(canvas, Difficult.Normal);
     game.start();
     let guan = new Player(canvas);
 }
