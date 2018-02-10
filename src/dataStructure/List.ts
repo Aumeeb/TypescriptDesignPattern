@@ -14,8 +14,8 @@ class List<T> {
 
     }
     private _defaultCapacity: number = 4;
-    private _items: Array<T>;
-    private _size: number;
+    private _items!: Array<T>;
+    private _size!: number;
     private emptyArray: Array<T> = new Array<T>();
 
 
@@ -24,12 +24,12 @@ class List<T> {
         return this._items.length
     }
     insert(index: number, obj: T): void {
-        lodash.add(1,2).toExponential
-        
+        lodash.add(1, 2).toExponential
+
     }
     remove(index: number) {
         //return this._items
-        
+
     }
     count(): number {
         return this._items.length
