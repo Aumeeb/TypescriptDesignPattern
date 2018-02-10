@@ -18,7 +18,7 @@ class Feeder {
 
 }
 class Aniaml {
-    watcher: Camera;
+    watcher!: Camera;
     name: string
 
     full: number = 0
