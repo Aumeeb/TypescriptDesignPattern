@@ -1,49 +1,46 @@
 namespace ProxyPattern {
-    interface Image {
-        display(): void;
+  interface Image {
+    display(): void;
+  }
+  class RealImage implements Image {
+    private fileName: string;
+
+    constructor(fileName: string) {
+      this.fileName = fileName;
+      this.loadFromDisk(fileName);
     }
-    class RealImage implements Image {
 
-        private fileName: string;
-
-        constructor(fileName: string) {
-            this.fileName = fileName;
-            this.loadFromDisk(fileName);
-        }
-
-        display(): void {
-            console.log("Displaying " + this.fileName);
-        }
-
-        private loadFromDisk(fileName: string): void {
-            console.log("Loading " + this.fileName);
-        }
+    display(): void {
+      console.log("Displaying " + this.fileName);
     }
-    class ProxyImage implements Image {
 
-        private realImage: RealImage;
-        private fileName: string;
-
-        constructor(fileName: string) {
-            this.fileName = fileName;
-        }
-
-
-        display(): void {
-            if (this.realImage == null) {
-                this.realImage = new RealImage(this.fileName);
-            }
-            this.realImage.display();
-        }
+    private loadFromDisk(fileName: string): void {
+      console.log("Loading " + this.fileName);
     }
-    //图像将从磁盘加载
-    var image = new ProxyImage('test_10mb.jpg');
+  }
+  class ProxyImage implements Image {
+    private realImage: RealImage = null;
+    private fileName: string;
 
-    //图像将无法从磁盘加载
-    image.display();
+    constructor(fileName: string) {
+      this.fileName = fileName;
+    }
 
-    //图像将无法从磁盘加载
-    image.display();
+    display(): void {
+      if (this.realImage == null) {
+        this.realImage = new RealImage(this.fileName);
+      }
+      this.realImage.display();
+    }
+  }
+  //图像将从磁盘加载
+  var image = new ProxyImage("test_10mb.jpg");
+
+  //图像将无法从磁盘加载
+  image.display();
+
+  //图像将无法从磁盘加载
+  image.display();
 }
 
 /**
