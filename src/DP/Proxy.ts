@@ -19,7 +19,7 @@ namespace ProxyPattern {
     }
   }
   class ProxyImage implements Image {
-    private realImage: RealImage = null;
+    private realImage: RealImage | null | undefined;
     private fileName: string;
 
     constructor(fileName: string) {
