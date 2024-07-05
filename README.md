@@ -10,7 +10,7 @@
 ## 🌷7 Builder  
 ## 🌷8 Strategy  
 ## 🌷9 Prototype  
-## 🌷10 Adpater  
+## 🌷10 Adapter  
 ## 🌹11 Filter
 ## 🌹12 Decorator
 ## 🌹13 Facade
